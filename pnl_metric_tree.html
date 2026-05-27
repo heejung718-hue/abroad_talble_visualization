@@ -134,12 +134,17 @@ svg#lines{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
 .modal-btns button:hover{background:var(--color-background-secondary)}
 .btn-primary{background:var(--color-background-info)!important;color:var(--color-text-info)!important;border-color:var(--color-border-info)!important;font-weight:500}
 .btn-danger{color:var(--color-text-danger)!important;border-color:var(--color-border-danger)!important;margin-right:auto}
+
+/* Focus mode */
+.tbl-card.focused{box-shadow:0 0 0 2px #378ADD,0 4px 16px rgba(55,138,221,0.15)}
+.focus-hint{position:absolute;bottom:12px;right:12px;z-index:50;font-size:11px;color:var(--color-text-secondary);background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:6px;padding:4px 10px;display:none;user-select:none}
+.focus-hint.visible{display:block}
 </style>
 </head>
 <body>
 
 <h1>PNL 메트릭 트리</h1>
-<p class="page-desc">테이블 헤더를 드래그하여 이동 · 컬럼/헤더 더블클릭하여 편집</p>
+<p class="page-desc">테이블 헤더를 드래그하여 이동 · 더블클릭하여 편집 · 클릭하면 포커스 모드 · 빈 곳 클릭하면 복귀</p>
 
 <div class="toolbar">
   <button onclick="openAddTableModal()"><i class="ti ti-plus"></i>테이블 추가</button>
@@ -166,6 +171,7 @@ svg#lines{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
     <button onclick="zoomTo(zoomLevel*1.15)">+</button>
     <button onclick="fitToView()" style="font-size:10px;margin-left:2px">맞추기</button>
   </div>
+  <div id="focus-hint" class="focus-hint">빈 곳 클릭 → 전체 보기</div>
   <div id="board-scaler">
     <div id="board">
       <svg id="lines" width="100%" height="100%"></svg>
@@ -182,6 +188,7 @@ let showFormulas = false;
 let idC = 300;
 let positions = {};
 let collapsedTables = {};
+let focusTableId = null;
 window._epRefs = [];
 
 /* ── Figma-style pan & zoom ── */
@@ -255,7 +262,10 @@ document.addEventListener('mousemove',function(e){
   applyTransform();
 });
 document.addEventListener('mouseup',function(e){
-  if(isPanning){isPanning=false; canvasWrap.classList.remove('panning');}
+  if(isPanning){
+    if(focusTableId&&Math.abs(e.clientX-panStartX)<5&&Math.abs(e.clientY-panStartY)<5) deactivateFocus();
+    isPanning=false; canvasWrap.classList.remove('panning');
+  }
 });
 
 let tables = [
@@ -4708,20 +4718,24 @@ function cardH(t){
 }
 
 function computeLayout(){
+  const relIds = focusTableId ? getRelatedTableIds(focusTableId) : null;
   const LX={2:20, 3:20+CARD_W+GAP_X, 4:20+2*(CARD_W+GAP_X)};
   let globalY=20;
   tables.filter(t=>t.level===2).forEach(t2=>{
+    if(relIds && !relIds.has(t2.id)) return;
     let currentY=globalY;
-    t2.children.forEach(t3id=>{
+    const vL3 = t2.children.filter(id=>!relIds||relIds.has(id));
+    vL3.forEach(t3id=>{
       const t3=getTable(t3id);if(!t3)return;
+      const vL4 = t3.children.filter(id=>!relIds||relIds.has(id));
       let childH=0;
-      t3.children.forEach((cid,i)=>{
+      vL4.forEach((cid,i)=>{
         if(i>0)childH+=GAP_Y;
         childH+=cardH(getTable(cid));
       });
       const span=Math.max(childH,cardH(t3));
       let cy=currentY+(span-childH)/2;
-      t3.children.forEach(cid=>{
+      vL4.forEach(cid=>{
         const ct=getTable(cid);if(!ct)return;
         positions[cid]={x:LX[4],y:cy};
         cy+=cardH(ct)+GAP_Y;
@@ -4757,7 +4771,7 @@ function renderCards(){
   tables.forEach(t=>{
     const p=positions[t.id];if(!p)return;
     const el=document.createElement('div');
-    el.className=`tbl-card l${t.level}`;
+    el.className=`tbl-card l${t.level}${focusTableId===t.id?' focused':''}`;
     el.id='card-'+t.id;
     el.style.cssText=`left:${p.x}px;top:${p.y}px`;
     const isCollapsed = collapsedTables[t.id] || false;
@@ -4795,21 +4809,22 @@ function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').
 
 function makeDraggable(el, tid){
   const handle=el.querySelector('.tbl-head');
-  let ox,oy,sx,sy,dragging=false;
+  let ox,oy,sx,sy,dragging=false,moved=false;
   handle.addEventListener('mousedown',e=>{
     if(e.target.tagName==='BUTTON'||e.detail>1||spaceHeld)return;
-    dragging=true; cardDragging=true;
+    dragging=true; cardDragging=true; moved=false;
     ox=positions[tid].x; oy=positions[tid].y; sx=e.clientX; sy=e.clientY;
     e.preventDefault(); e.stopPropagation();
   });
   document.addEventListener('mousemove',e=>{
     if(!dragging)return;
     const dx=(e.clientX-sx)/zoomLevel, dy=(e.clientY-sy)/zoomLevel;
+    if(Math.abs(dx)>3||Math.abs(dy)>3) moved=true;
     positions[tid]={x:Math.round(ox+dx),y:Math.round(oy+dy)};
     el.style.left=positions[tid].x+'px'; el.style.top=positions[tid].y+'px';
     renderLines();
   });
-  document.addEventListener('mouseup',()=>{if(dragging){dragging=false; cardDragging=false;}});
+  document.addEventListener('mouseup',()=>{if(dragging){if(!moved)activateFocus(tid);dragging=false; cardDragging=false;}});
 }
 
 function renderLines(){
@@ -5091,6 +5106,28 @@ document.addEventListener('click',e=>{
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closeEditPanel();closeModal();}
 });
+
+/* ── Focus mode ── */
+function getRelatedTableIds(tid){
+  const t=getTable(tid);if(!t)return new Set();
+  const ids=new Set();
+  let cur=t;
+  while(cur){ids.add(cur.id);cur=cur.parent?getTable(cur.parent):null;}
+  function addDesc(id){const n=getTable(id);if(!n)return;ids.add(id);(n.children||[]).forEach(addDesc);}
+  addDesc(tid);
+  if(t.level===4&&t.parent){const p=getTable(t.parent);if(p)p.children.forEach(cid=>ids.add(cid));}
+  return ids;
+}
+function activateFocus(tid){
+  if(focusTableId===tid){deactivateFocus();return;}
+  focusTableId=tid;positions={};renderAll();setTimeout(fitToView,30);
+  document.getElementById('focus-hint').classList.add('visible');
+}
+function deactivateFocus(){
+  if(!focusTableId)return;
+  focusTableId=null;positions={};renderAll();setTimeout(fitToView,30);
+  document.getElementById('focus-hint').classList.remove('visible');
+}
 
 /* ── localStorage 자동저장 / JSON 내보내기·불러오기 ── */
 const STORAGE_KEY = 'pnl_metric_tree_data_v5';
