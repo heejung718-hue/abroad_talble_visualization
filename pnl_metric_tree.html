@@ -4818,7 +4818,7 @@ function makeDraggable(el, tid){
   const handle=el.querySelector('.tbl-head');
   let ox,oy,sx,sy,dragging=false,moved=false;
   handle.addEventListener('mousedown',e=>{
-    if(e.target.tagName==='BUTTON'||e.detail>1||spaceHeld)return;
+    if(e.target.closest('button')||e.detail>1||spaceHeld)return;
     dragging=true; cardDragging=true; moved=false;
     ox=positions[tid].x; oy=positions[tid].y; sx=e.clientX; sy=e.clientY;
     e.preventDefault(); e.stopPropagation();
