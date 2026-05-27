@@ -136,7 +136,9 @@ svg#lines{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
 .btn-danger{color:var(--color-text-danger)!important;border-color:var(--color-border-danger)!important;margin-right:auto}
 
 /* Focus mode */
-.tbl-card.focused{box-shadow:0 0 0 2px #378ADD,0 4px 16px rgba(55,138,221,0.15)}
+.tbl-card.focused{box-shadow:0 0 0 3px #378ADD,0 6px 24px rgba(55,138,221,0.25);border-color:#378ADD;transform:scale(1.02);z-index:10}
+.tbl-card.focused .tbl-head{background:rgba(55,138,221,0.06)}
+.tbl-card.chain{border-color:rgba(55,138,221,0.5);box-shadow:0 2px 12px rgba(55,138,221,0.1)}
 .focus-hint{position:absolute;bottom:12px;right:12px;z-index:50;font-size:11px;color:var(--color-text-secondary);background:var(--color-background-primary);border:0.5px solid var(--color-border-secondary);border-radius:6px;padding:4px 10px;display:none;user-select:none}
 .focus-hint.visible{display:block}
 </style>
@@ -152,6 +154,7 @@ svg#lines{position:absolute;top:0;left:0;pointer-events:none;overflow:visible}
   <button onclick="toggleLines()"><i class="ti ti-arrows-split-2"></i><span id="lines-label">참조선 숨기기</span></button>
   <button onclick="toggleFormulas()"><i class="ti ti-math-function"></i><span id="formulas-label">연산식 보기</span></button>
   <button onclick="resetLayout()"><i class="ti ti-layout-distribute-horizontal"></i>레이아웃 초기화</button>
+  <button onclick="toggleAllCollapse()"><i class="ti ti-arrows-vertical"></i><span id="collapse-label">전체 접기</span></button>
   <div class="sep"></div>
   <button onclick="exportJSON()"><i class="ti ti-download"></i>JSON 저장</button>
   <button onclick="document.getElementById('import-file').click()"><i class="ti ti-upload"></i>JSON 불러오기</button>
@@ -4771,7 +4774,11 @@ function renderCards(){
   tables.forEach(t=>{
     const p=positions[t.id];if(!p)return;
     const el=document.createElement('div');
-    el.className=`tbl-card l${t.level}${focusTableId===t.id?' focused':''}`;
+    const _relIds = focusTableId ? getRelatedTableIds(focusTableId) : null;
+    let _cls = `tbl-card l${t.level}`;
+    if(focusTableId===t.id) _cls+=' focused';
+    else if(_relIds && _relIds.has(t.id)) _cls+=' chain';
+    el.className=_cls;
     el.id='card-'+t.id;
     el.style.cssText=`left:${p.x}px;top:${p.y}px`;
     const isCollapsed = collapsedTables[t.id] || false;
@@ -4898,6 +4905,15 @@ function toggleCollapse(tid, e){
   collapsedTables[tid] = !collapsedTables[tid];
   positions={};
   renderAll();
+}
+
+function toggleAllCollapse(){
+  const allCollapsed = tables.every(t=>collapsedTables[t.id]);
+  tables.forEach(t=>{ collapsedTables[t.id] = !allCollapsed; });
+  document.getElementById('collapse-label').textContent = allCollapsed ? '전체 접기' : '전체 펼치기';
+  positions={};
+  renderAll();
+  setTimeout(fitToView, 30);
 }
 
 function toggleFormulas(){
