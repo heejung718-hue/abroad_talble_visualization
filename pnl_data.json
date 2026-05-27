@@ -1,121 +1,2600 @@
 {
   "tables": [
     {
-      "id": "t1", "level": 2, "name": "2_global_pnl", "desc": "해외 모든 매체 통합 PNL", "parent": null, "children": ["t2", "t3"],
+      "id": "t1",
+      "level": 2,
+      "name": "2_global_pnl",
+      "desc": "해외 모든 매체 통합 PNL",
+      "parent": null,
+      "children": [
+        "t2",
+        "t3",
+        "t9",
+        "t13"
+      ],
       "cols": [
-        {"id":"c1","name":"settlement_date","type":"TS","formula":"amz.transaction_release_date | tt.statement_date","refs":[{"tableId":"t2","colId":"c102"},{"tableId":"t3","colId":"c232"}]},
-        {"id":"c2","name":"order_date","type":"TS","formula":"amz.date_time | tt.order_date","refs":[{"tableId":"t2","colId":"c101"},{"tableId":"t3","colId":"c201"}]},
-        {"id":"c3","name":"settlement_id","type":"VAR","formula":"amz.settlement_id | tt.statement_id","refs":[{"tableId":"t2","colId":"c103"},{"tableId":"t3","colId":"c202"}]},
-        {"id":"c4","name":"order_id","type":"VAR","formula":"amz.order_id | tt.order_or_adjustment_id","refs":[{"tableId":"t2","colId":"c104"},{"tableId":"t3","colId":"c203"}]},
-        {"id":"c5","name":"type","type":"VAR","formula":"amz.type | tt.type","refs":[{"tableId":"t2","colId":"c105"},{"tableId":"t3","colId":"c204"}]},
-        {"id":"c6","name":"product_name","type":"VAR","formula":"amz.description | tt.product_name","refs":[{"tableId":"t2","colId":"c106"},{"tableId":"t3","colId":"c205"}]},
-        {"id":"c7","name":"sku_name","type":"VAR","formula":"amz.sku | tt.sku_name","refs":[{"tableId":"t2","colId":"c107"},{"tableId":"t3","colId":"c206"}]},
-        {"id":"c8","name":"sku_id","type":"VAR","formula":"tt.sku_id","refs":[{"tableId":"t3","colId":"c207"}]},
-        {"id":"c9","name":"quantity","type":"INT","formula":"amz.quantity | tt.quantity","refs":[{"tableId":"t2","colId":"c108"},{"tableId":"t3","colId":"c208"}]},
-        {"id":"c10","name":"currency","type":"VAR","formula":"\"USD\"","refs":[]},
-        {"id":"c11","name":"revenue","type":"DEC","formula":"amz.revenue | tt.revenue","refs":[{"tableId":"t2","colId":"c109"},{"tableId":"t3","colId":"c210"}]},
-        {"id":"c12","name":"shipping","type":"DEC","formula":"amz.shipping | tt.shipping + tt.retail_delivery_fee","refs":[{"tableId":"t2","colId":"c110"},{"tableId":"t3","colId":"c211"},{"tableId":"t3","colId":"c229"}]},
-        {"id":"c13","name":"fullfilment_type","type":"VAR","formula":"\"FBA\" | \"FBT\"","refs":[]},
-        {"id":"c14","name":"fullfilment_fee","type":"DEC","formula":"amz.FBA | tt.FBT","refs":[{"tableId":"t2","colId":"c111"},{"tableId":"t3","colId":"c212"}]},
-        {"id":"c15","name":"commission_fees","type":"DEC","formula":"amz.fees | tt.fees + tt.affiliate","refs":[{"tableId":"t2","colId":"c112"},{"tableId":"t3","colId":"c213"},{"tableId":"t3","colId":"c230"}]},
-        {"id":"c16","name":"promotion","type":"DEC","formula":"amz.promotion | tt.promotion + tt.o_card_discount","refs":[{"tableId":"t2","colId":"c113"},{"tableId":"t3","colId":"c214"},{"tableId":"t3","colId":"c231"}]},
-        {"id":"c17","name":"tax_collected","type":"DEC","formula":"amz.tax_collected | tt.o_tax_collected","refs":[{"tableId":"t2","colId":"c114"},{"tableId":"t3","colId":"c215"}]},
-        {"id":"c18","name":"tax_withheld","type":"DEC","formula":"amz.tax_withheld | tt.tax_withheld","refs":[{"tableId":"t2","colId":"c115"},{"tableId":"t3","colId":"c216"}]},
-        {"id":"c19","name":"other","type":"DEC","formula":"amz.other | tt.other","refs":[{"tableId":"t2","colId":"c116"},{"tableId":"t3","colId":"c217"}]},
-        {"id":"c20","name":"net_settlement","type":"DEC","formula":"amz.net_settlement | tt.net_settlement","refs":[{"tableId":"t2","colId":"c117"},{"tableId":"t3","colId":"c218"}]},
-        {"id":"c21","name":"c_sku","type":"VAR","formula":"amz.c_sku | tt.c_sku","refs":[{"tableId":"t2","colId":"c118"},{"tableId":"t3","colId":"c219"}]},
-        {"id":"c22","name":"c_cogs_value","type":"DEC","formula":"amz.c_cogs_value | tt.c_cogs_value","refs":[{"tableId":"t2","colId":"c119"},{"tableId":"t3","colId":"c220"}]},
-        {"id":"c23","name":"c_cogs_value_total","type":"DEC","formula":"amz.c_cogs_total_value | tt.c_cogs_value_total","refs":[{"tableId":"t2","colId":"c120"},{"tableId":"t3","colId":"c221"}]},
-        {"id":"c24","name":"state","type":"VAR","formula":"amz.order_state | tt.o_state","refs":[{"tableId":"t2","colId":"c121"},{"tableId":"t3","colId":"c222"}]},
-        {"id":"c25","name":"postal","type":"VAR","formula":"amz.order_postal","refs":[{"tableId":"t2","colId":"c122"}]},
-        {"id":"c26","name":"city","type":"VAR","formula":"amz.order_city","refs":[{"tableId":"t2","colId":"c123"}]},
-        {"id":"c27","name":"recipient","type":"VAR","formula":"tt.o_recipient","refs":[{"tableId":"t3","colId":"c223"}]},
-        {"id":"c28","name":"phone","type":"VAR","formula":"tt.o_phone","refs":[{"tableId":"t3","colId":"c224"}]},
-        {"id":"c29","name":"country","type":"VAR","formula":"tt.o_country","refs":[{"tableId":"t3","colId":"c225"}]},
-        {"id":"c30","name":"payment_method","type":"VAR","formula":"tt.o_payment_method","refs":[{"tableId":"t3","colId":"c226"}]},
-        {"id":"c31","name":"refund_amount","type":"DEC","formula":"tt.refund_amount","refs":[{"tableId":"t3","colId":"c227"}]},
-        {"id":"c32","name":"o_payment_amount","type":"DEC","formula":"amz: revenue + tax_collected + shipping + promotion | tt.o_payment_amount","refs":[{"tableId":"t2","colId":"c109"},{"tableId":"t2","colId":"c114"},{"tableId":"t2","colId":"c110"},{"tableId":"t2","colId":"c113"},{"tableId":"t3","colId":"c228"}]}
+        {
+          "id": "c1",
+          "name": "settlement_date",
+          "type": "TS",
+          "formula": "amz.transaction_release_date | tt.statement_date | shopee: NULL | q10.settled_date",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c102"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c232"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c962"
+            }
+          ]
+        },
+        {
+          "id": "c2",
+          "name": "order_date",
+          "type": "TS",
+          "formula": "amz.date_time | tt.order_date | shopee.order_date | q10.payment_date",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c101"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c201"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c801"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c950"
+            }
+          ]
+        },
+        {
+          "id": "c3",
+          "name": "settlement_id",
+          "type": "VAR",
+          "formula": "amz.settlement_id | tt.statement_id | shopee: NULL | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c103"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c202"
+            }
+          ]
+        },
+        {
+          "id": "c4",
+          "name": "order_id",
+          "type": "VAR",
+          "formula": "amz.order_id | tt.order_or_adjustment_id | shopee.order_sn | q10.order_no",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c104"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c203"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c800"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c951"
+            }
+          ]
+        },
+        {
+          "id": "c5",
+          "name": "type",
+          "type": "VAR",
+          "formula": "amz.type | tt.type | shopee.order_status | q10.shipping_status",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c105"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c204"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c805"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c952"
+            }
+          ]
+        },
+        {
+          "id": "c6",
+          "name": "product_name",
+          "type": "VAR",
+          "formula": "amz.description | tt.product_name | shopee.item_name | q10.item_title",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c106"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c205"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c809"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c953"
+            }
+          ]
+        },
+        {
+          "id": "c7",
+          "name": "sku_name",
+          "type": "VAR",
+          "formula": "amz.sku | tt.sku_name | shopee.model_name | q10.option",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c107"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c206"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c812"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c954"
+            }
+          ]
+        },
+        {
+          "id": "c8",
+          "name": "sku_id",
+          "type": "VAR",
+          "formula": "tt.sku_id | shopee.model_sku | q10.option_code",
+          "refs": [
+            {
+              "tableId": "t3",
+              "colId": "c207"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c813"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c955"
+            }
+          ]
+        },
+        {
+          "id": "c9",
+          "name": "quantity",
+          "type": "INT",
+          "formula": "amz.quantity | tt.quantity | shopee.quantity | q10.order_qty",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c108"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c208"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c814"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c956"
+            }
+          ]
+        },
+        {
+          "id": "c10",
+          "name": "currency",
+          "type": "VAR",
+          "formula": "\"USD\"",
+          "refs": []
+        },
+        {
+          "id": "c11",
+          "name": "revenue",
+          "type": "DEC",
+          "formula": "amz.revenue | tt.revenue | shopee.revenue | q10.order_price",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c109"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c210"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c816"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c957"
+            }
+          ]
+        },
+        {
+          "id": "c12",
+          "name": "shipping",
+          "type": "DEC",
+          "formula": "amz.shipping | tt.shipping + tt.retail_delivery_fee | shopee.shipping | q10.shipping_rate",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c110"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c211"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c229"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c817"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c958"
+            }
+          ]
+        },
+        {
+          "id": "c13",
+          "name": "fullfilment_type",
+          "type": "VAR",
+          "formula": "\"FBA\" | \"FBT\"",
+          "refs": []
+        },
+        {
+          "id": "c14",
+          "name": "fullfilment_fee",
+          "type": "DEC",
+          "formula": "amz.FBA | tt.FBT | shopee.fbs | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c111"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c212"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c820"
+            }
+          ]
+        },
+        {
+          "id": "c15",
+          "name": "commission_fees",
+          "type": "DEC",
+          "formula": "amz.fees | tt.fees + tt.affiliate | shopee.fee | q10.service_fee",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c112"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c213"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c230"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c819"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c959"
+            }
+          ]
+        },
+        {
+          "id": "c16",
+          "name": "promotion",
+          "type": "DEC",
+          "formula": "amz.promotion | tt.promotion + tt.o_card_discount | shopee.promotion | q10.discount",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c113"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c214"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c231"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c818"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c960"
+            }
+          ]
+        },
+        {
+          "id": "c17",
+          "name": "tax_collected",
+          "type": "DEC",
+          "formula": "amz.tax_collected | tt.o_tax_collected | shopee.tax | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c114"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c215"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c821"
+            }
+          ]
+        },
+        {
+          "id": "c18",
+          "name": "tax_withheld",
+          "type": "DEC",
+          "formula": "amz.tax_withheld | tt.tax_withheld | shopee: NULL | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c115"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c216"
+            }
+          ]
+        },
+        {
+          "id": "c19",
+          "name": "other",
+          "type": "DEC",
+          "formula": "amz.other | tt.other | shopee.other | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c116"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c217"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c822"
+            }
+          ]
+        },
+        {
+          "id": "c20",
+          "name": "net_settlement",
+          "type": "DEC",
+          "formula": "amz.net_settlement | tt.net_settlement | shopee.item_calc_settlement | q10.settled_amount",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c117"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c218"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c824"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c961"
+            }
+          ]
+        },
+        {
+          "id": "c21",
+          "name": "c_sku",
+          "type": "VAR",
+          "formula": "amz.c_sku | tt.c_sku | shopee.model_sku | q10.option_code",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c118"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c219"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c813"
+            }
+          ]
+        },
+        {
+          "id": "c22",
+          "name": "c_cogs_value",
+          "type": "DEC",
+          "formula": "amz.c_cogs_value | tt.c_cogs_value | shopee.cogs_krw | q10: fn_q10_cogs()",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c119"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c220"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c826"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c963"
+            }
+          ]
+        },
+        {
+          "id": "c23",
+          "name": "c_cogs_value_total",
+          "type": "DEC",
+          "formula": "amz.c_cogs_total_value | tt.c_cogs_value_total | shopee.cogs_total_krw | q10: fn_q10_cogs() × qty",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c120"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c221"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c827"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c964"
+            }
+          ]
+        },
+        {
+          "id": "c24",
+          "name": "state",
+          "type": "VAR",
+          "formula": "amz.order_state | tt.o_state | shopee: NULL | q10.shipping_address",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c121"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c222"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c968"
+            }
+          ]
+        },
+        {
+          "id": "c25",
+          "name": "postal",
+          "type": "VAR",
+          "formula": "amz.order_postal | shopee: NULL | q10.zip_code",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c122"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c969"
+            }
+          ]
+        },
+        {
+          "id": "c26",
+          "name": "city",
+          "type": "VAR",
+          "formula": "amz.order_city | shopee: NULL | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c123"
+            }
+          ]
+        },
+        {
+          "id": "c27",
+          "name": "recipient",
+          "type": "VAR",
+          "formula": "tt.o_recipient | shopee.buyer_user_name | q10.buyer",
+          "refs": [
+            {
+              "tableId": "t3",
+              "colId": "c223"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c806"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c966"
+            }
+          ]
+        },
+        {
+          "id": "c28",
+          "name": "phone",
+          "type": "VAR",
+          "formula": "tt.o_phone | shopee: NULL | q10.buyer_mobile",
+          "refs": [
+            {
+              "tableId": "t3",
+              "colId": "c224"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c967"
+            }
+          ]
+        },
+        {
+          "id": "c29",
+          "name": "country",
+          "type": "VAR",
+          "formula": "tt.o_country | shopee.country | q10: \"JP\"",
+          "refs": [
+            {
+              "tableId": "t3",
+              "colId": "c225"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c803"
+            }
+          ]
+        },
+        {
+          "id": "c30",
+          "name": "payment_method",
+          "type": "VAR",
+          "formula": "tt.o_payment_method | shopee.buyer_payment_method | q10.payment_method",
+          "refs": [
+            {
+              "tableId": "t3",
+              "colId": "c226"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c807"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c970"
+            }
+          ]
+        },
+        {
+          "id": "c31",
+          "name": "refund_amount",
+          "type": "DEC",
+          "formula": "tt.refund_amount | shopee: NULL | q10: NULL",
+          "refs": [
+            {
+              "tableId": "t3",
+              "colId": "c227"
+            }
+          ]
+        },
+        {
+          "id": "c32",
+          "name": "o_payment_amount",
+          "type": "DEC",
+          "formula": "amz: revenue + tax_collected + shipping + promotion | tt.o_payment_amount | shopee.payment_amount | q10: SUM(total) by pack_no",
+          "refs": [
+            {
+              "tableId": "t2",
+              "colId": "c109"
+            },
+            {
+              "tableId": "t2",
+              "colId": "c114"
+            },
+            {
+              "tableId": "t2",
+              "colId": "c110"
+            },
+            {
+              "tableId": "t2",
+              "colId": "c113"
+            },
+            {
+              "tableId": "t3",
+              "colId": "c228"
+            },
+            {
+              "tableId": "t9",
+              "colId": "c815"
+            },
+            {
+              "tableId": "t13",
+              "colId": "c965"
+            }
+          ]
+        }
       ]
     },
     {
-      "id": "t2", "level": 3, "name": "3_amazon_pnl", "desc": "아마존 채널 PNL", "parent": "t1", "children": [],
+      "id": "t2",
+      "level": 3,
+      "name": "3_amazon_pnl",
+      "desc": "아마존 채널 PNL",
+      "parent": "t1",
+      "children": [],
       "cols": [
-        {"id":"c101","name":"date_time","type":"TS","formula":"","refs":[]},
-        {"id":"c102","name":"transaction_release_date","type":"TS","formula":"","refs":[]},
-        {"id":"c103","name":"settlement_id","type":"VAR","formula":"","refs":[]},
-        {"id":"c104","name":"order_id","type":"VAR","formula":"","refs":[]},
-        {"id":"c105","name":"type","type":"VAR","formula":"","refs":[]},
-        {"id":"c106","name":"description","type":"VAR","formula":"","refs":[]},
-        {"id":"c107","name":"sku","type":"VAR","formula":"","refs":[]},
-        {"id":"c108","name":"quantity","type":"INT","formula":"","refs":[]},
-        {"id":"c109","name":"revenue","type":"DEC","formula":"","refs":[]},
-        {"id":"c110","name":"shipping","type":"DEC","formula":"","refs":[]},
-        {"id":"c111","name":"FBA","type":"DEC","formula":"","refs":[]},
-        {"id":"c112","name":"fees","type":"DEC","formula":"","refs":[]},
-        {"id":"c113","name":"promotion","type":"DEC","formula":"","refs":[]},
-        {"id":"c114","name":"tax_collected","type":"DEC","formula":"","refs":[]},
-        {"id":"c115","name":"tax_withheld","type":"DEC","formula":"","refs":[]},
-        {"id":"c116","name":"other","type":"DEC","formula":"","refs":[]},
-        {"id":"c117","name":"net_settlement","type":"DEC","formula":"","refs":[]},
-        {"id":"c118","name":"c_sku","type":"VAR","formula":"","refs":[]},
-        {"id":"c119","name":"c_cogs_value","type":"DEC","formula":"","refs":[]},
-        {"id":"c120","name":"c_cogs_total_value","type":"DEC","formula":"","refs":[]},
-        {"id":"c121","name":"order_state","type":"VAR","formula":"","refs":[]},
-        {"id":"c122","name":"order_postal","type":"VAR","formula":"","refs":[]},
-        {"id":"c123","name":"order_city","type":"VAR","formula":"","refs":[]},
-        {"id":"c124","name":"inserted_at","type":"TS","formula":"","refs":[]},
-        {"id":"c125","name":"date_time_raw","type":"VAR","formula":"","refs":[]},
-        {"id":"c126","name":"fulfillment","type":"VAR","formula":"","refs":[]},
-        {"id":"c127","name":"marketplace","type":"VAR","formula":"","refs":[]},
-        {"id":"c128","name":"account_type","type":"VAR","formula":"","refs":[]},
-        {"id":"c129","name":"tax_collection_model","type":"VAR","formula":"","refs":[]}
+        {
+          "id": "c101",
+          "name": "date_time",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c102",
+          "name": "transaction_release_date",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c103",
+          "name": "settlement_id",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c104",
+          "name": "order_id",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c105",
+          "name": "type",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c106",
+          "name": "description",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c107",
+          "name": "sku",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c108",
+          "name": "quantity",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c109",
+          "name": "revenue",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c110",
+          "name": "shipping",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c111",
+          "name": "FBA",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c112",
+          "name": "fees",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c113",
+          "name": "promotion",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c114",
+          "name": "tax_collected",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c115",
+          "name": "tax_withheld",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c116",
+          "name": "other",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c117",
+          "name": "net_settlement",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c118",
+          "name": "c_sku",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c119",
+          "name": "c_cogs_value",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c120",
+          "name": "c_cogs_total_value",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c121",
+          "name": "order_state",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c122",
+          "name": "order_postal",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c123",
+          "name": "order_city",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c124",
+          "name": "inserted_at",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c125",
+          "name": "date_time_raw",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c126",
+          "name": "fulfillment",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c127",
+          "name": "marketplace",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c128",
+          "name": "account_type",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c129",
+          "name": "tax_collection_model",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        }
       ]
     },
     {
-      "id": "t3", "level": 3, "name": "3_ttshop_pnl", "desc": "틱톡샵 채널 PNL", "parent": "t1", "children": [],
+      "id": "t3",
+      "level": 3,
+      "name": "3_ttshop_pnl",
+      "desc": "틱톡샵 채널 PNL",
+      "parent": "t1",
+      "children": [],
       "cols": [
-        {"id":"c201","name":"order_date","type":"TS","formula":"","refs":[]},
-        {"id":"c202","name":"statement_id","type":"VAR","formula":"","refs":[]},
-        {"id":"c203","name":"order_or_adjustment_id","type":"VAR","formula":"","refs":[]},
-        {"id":"c204","name":"type","type":"VAR","formula":"","refs":[]},
-        {"id":"c205","name":"product_name","type":"VAR","formula":"","refs":[]},
-        {"id":"c206","name":"sku_name","type":"VAR","formula":"","refs":[]},
-        {"id":"c207","name":"sku_id","type":"VAR","formula":"","refs":[]},
-        {"id":"c208","name":"quantity","type":"INT","formula":"","refs":[]},
-        {"id":"c209","name":"currency","type":"VAR","formula":"","refs":[]},
-        {"id":"c210","name":"revenue","type":"DEC","formula":"","refs":[]},
-        {"id":"c211","name":"shipping","type":"DEC","formula":"","refs":[]},
-        {"id":"c212","name":"FBT","type":"DEC","formula":"","refs":[]},
-        {"id":"c213","name":"fees","type":"DEC","formula":"","refs":[]},
-        {"id":"c214","name":"promotion","type":"DEC","formula":"","refs":[]},
-        {"id":"c215","name":"o_tax_collected","type":"DEC","formula":"","refs":[]},
-        {"id":"c216","name":"tax_withheld","type":"DEC","formula":"","refs":[]},
-        {"id":"c217","name":"other","type":"DEC","formula":"","refs":[]},
-        {"id":"c218","name":"net_settlement","type":"DEC","formula":"","refs":[]},
-        {"id":"c219","name":"c_sku","type":"VAR","formula":"","refs":[]},
-        {"id":"c220","name":"c_cogs_value","type":"DEC","formula":"","refs":[]},
-        {"id":"c221","name":"c_cogs_value_total","type":"DEC","formula":"","refs":[]},
-        {"id":"c222","name":"o_state","type":"VAR","formula":"","refs":[]},
-        {"id":"c223","name":"o_recipient","type":"VAR","formula":"","refs":[]},
-        {"id":"c224","name":"o_phone","type":"VAR","formula":"","refs":[]},
-        {"id":"c225","name":"o_country","type":"VAR","formula":"","refs":[]},
-        {"id":"c226","name":"o_payment_method","type":"VAR","formula":"","refs":[]},
-        {"id":"c227","name":"refund_amount","type":"DEC","formula":"","refs":[]},
-        {"id":"c228","name":"o_payment_amount","type":"DEC","formula":"","refs":[]},
-        {"id":"c229","name":"retail_delivery_fee","type":"DEC","formula":"","refs":[]},
-        {"id":"c230","name":"affiliate","type":"DEC","formula":"","refs":[]},
-        {"id":"c231","name":"o_card_discount","type":"DEC","formula":"","refs":[]},
-        {"id":"c232","name":"statement_date","type":"TS","formula":"","refs":[]},
-        {"id":"c233","name":"inserted_at","type":"TS","formula":"","refs":[]},
-        {"id":"c234","name":"related_order_id","type":"VAR","formula":"","refs":[]},
-        {"id":"c235","name":"adjustment_reason","type":"VAR","formula":"","refs":[]},
-        {"id":"c236","name":"additional_information","type":"VAR","formula":"","refs":[]},
-        {"id":"c237","name":"total_revenue","type":"DEC","formula":"","refs":[]},
-        {"id":"c238","name":"total_fee","type":"DEC","formula":"","refs":[]},
-        {"id":"c239","name":"o_refund_amount","type":"DEC","formula":"","refs":[]}
+        {
+          "id": "c201",
+          "name": "order_date",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c202",
+          "name": "statement_id",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c203",
+          "name": "order_or_adjustment_id",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c204",
+          "name": "type",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c205",
+          "name": "product_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c206",
+          "name": "sku_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c207",
+          "name": "sku_id",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c208",
+          "name": "quantity",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c209",
+          "name": "currency",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c210",
+          "name": "revenue",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c211",
+          "name": "shipping",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c212",
+          "name": "FBT",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c213",
+          "name": "fees",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c214",
+          "name": "promotion",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c215",
+          "name": "o_tax_collected",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c216",
+          "name": "tax_withheld",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c217",
+          "name": "other",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c218",
+          "name": "net_settlement",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c219",
+          "name": "c_sku",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c220",
+          "name": "c_cogs_value",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c221",
+          "name": "c_cogs_value_total",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c222",
+          "name": "o_state",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c223",
+          "name": "o_recipient",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c224",
+          "name": "o_phone",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c225",
+          "name": "o_country",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c226",
+          "name": "o_payment_method",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c227",
+          "name": "refund_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c228",
+          "name": "o_payment_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c229",
+          "name": "retail_delivery_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c230",
+          "name": "affiliate",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c231",
+          "name": "o_card_discount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c232",
+          "name": "statement_date",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c233",
+          "name": "inserted_at",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c234",
+          "name": "related_order_id",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c235",
+          "name": "adjustment_reason",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c236",
+          "name": "additional_information",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c237",
+          "name": "total_revenue",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c238",
+          "name": "total_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c239",
+          "name": "o_refund_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "id": "t9",
+      "level": 3,
+      "name": "3_shopee_pnl",
+      "desc": "쇼피 채널 PNL (VIEW: 4_shopee_settlement + 4_shopee_order + 5_shopee_cogs)",
+      "parent": "t1",
+      "children": [
+        "t10",
+        "t11",
+        "t12"
+      ],
+      "cols": [
+        {
+          "id": "c800",
+          "name": "order_sn",
+          "type": "VAR",
+          "formula": "t.order_sn",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c850"
+            }
+          ]
+        },
+        {
+          "id": "c801",
+          "name": "order_date",
+          "type": "DATE",
+          "formula": "DATE(o.pay_time)",
+          "refs": [
+            {
+              "tableId": "t11",
+              "colId": "c903"
+            }
+          ]
+        },
+        {
+          "id": "c802",
+          "name": "shop_id",
+          "type": "INT",
+          "formula": "t.shop_id",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c851"
+            }
+          ]
+        },
+        {
+          "id": "c803",
+          "name": "country",
+          "type": "VAR",
+          "formula": "o.region",
+          "refs": [
+            {
+              "tableId": "t11",
+              "colId": "c904"
+            }
+          ]
+        },
+        {
+          "id": "c804",
+          "name": "currency",
+          "type": "VAR",
+          "formula": "o.currency",
+          "refs": [
+            {
+              "tableId": "t11",
+              "colId": "c905"
+            }
+          ]
+        },
+        {
+          "id": "c805",
+          "name": "order_status",
+          "type": "VAR",
+          "formula": "o.order_status",
+          "refs": [
+            {
+              "tableId": "t11",
+              "colId": "c906"
+            }
+          ]
+        },
+        {
+          "id": "c806",
+          "name": "buyer_user_name",
+          "type": "VAR",
+          "formula": "t.buyer_user_name",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c852"
+            }
+          ]
+        },
+        {
+          "id": "c807",
+          "name": "buyer_payment_method",
+          "type": "VAR",
+          "formula": "t.buyer_payment_method",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c853"
+            }
+          ]
+        },
+        {
+          "id": "c808",
+          "name": "item_id",
+          "type": "INT",
+          "formula": "t.item_id",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c854"
+            }
+          ]
+        },
+        {
+          "id": "c809",
+          "name": "item_name",
+          "type": "VAR",
+          "formula": "t.item_name",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c855"
+            }
+          ]
+        },
+        {
+          "id": "c810",
+          "name": "item_sku",
+          "type": "VAR",
+          "formula": "t.item_sku",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c856"
+            }
+          ]
+        },
+        {
+          "id": "c811",
+          "name": "model_id",
+          "type": "INT",
+          "formula": "t.model_id",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c857"
+            }
+          ]
+        },
+        {
+          "id": "c812",
+          "name": "model_name",
+          "type": "VAR",
+          "formula": "t.model_name",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c858"
+            }
+          ]
+        },
+        {
+          "id": "c813",
+          "name": "model_sku",
+          "type": "VAR",
+          "formula": "t.model_sku",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c859"
+            }
+          ]
+        },
+        {
+          "id": "c814",
+          "name": "item_quantity_purchased",
+          "type": "INT",
+          "formula": "t.item_quantity_purchased",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c860"
+            }
+          ]
+        },
+        {
+          "id": "c815",
+          "name": "payment_amount",
+          "type": "DEC",
+          "formula": "t.item_selling_price - t.item_discount_from_coin - t.item_discount_from_voucher_shopee - t.item_discount_from_voucher_seller",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c861"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c862"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c863"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c864"
+            }
+          ]
+        },
+        {
+          "id": "c816",
+          "name": "revenue",
+          "type": "DEC",
+          "formula": "t.item_original_price",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c865"
+            }
+          ]
+        },
+        {
+          "id": "c817",
+          "name": "shipping",
+          "type": "DEC",
+          "formula": "(t.buyer_paid_shipping_fee + t.final_shipping_fee) × item_original_price / order_original_price",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c867"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c868"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c865"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c866"
+            }
+          ]
+        },
+        {
+          "id": "c818",
+          "name": "promotion",
+          "type": "DEC",
+          "formula": "t.item_seller_discount + t.item_discount_from_voucher_seller",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c869"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c864"
+            }
+          ]
+        },
+        {
+          "id": "c819",
+          "name": "fee",
+          "type": "DEC",
+          "formula": "(t.commission_fee + t.service_fee + t.seller_transaction_fee + t.order_ams_commission_fee + t.campaign_fee + t.seller_order_processing_fee + t.final_product_protection + t.bcrs_deposit + t.ads_escrow_top_up_fee) × ratio",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c870"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c871"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c872"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c873"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c874"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c875"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c876"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c877"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c878"
+            }
+          ]
+        },
+        {
+          "id": "c820",
+          "name": "fbs",
+          "type": "DEC",
+          "formula": "t.fbs_fee × ratio",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c879"
+            }
+          ]
+        },
+        {
+          "id": "c821",
+          "name": "tax",
+          "type": "DEC",
+          "formula": "(t.final_escrow_product_gst + t.final_escrow_shipping_gst + t.escrow_tax + t.shipping_fee_sst + t.reverse_shipping_fee_sst) × ratio",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c880"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c881"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c882"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c883"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c884"
+            }
+          ]
+        },
+        {
+          "id": "c822",
+          "name": "other",
+          "type": "DEC",
+          "formula": "(t.total_adjustment_amount + t.seller_lost_compensation + t.seller_coin_cash_back + t.drc_adjustable_refund + t.sip_subsidy + t.credit_card_promotion - t.reverse_shipping_fee - t.overseas_return_service_fee + t.final_return_to_seller_shipping_fee) × ratio",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c885"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c886"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c887"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c888"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c889"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c890"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c891"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c892"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c893"
+            }
+          ]
+        },
+        {
+          "id": "c823",
+          "name": "net_settlement",
+          "type": "DEC",
+          "formula": "t.escrow_amount × item_original_price / order_original_price",
+          "refs": [
+            {
+              "tableId": "t10",
+              "colId": "c894"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c865"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c866"
+            }
+          ]
+        },
+        {
+          "id": "c824",
+          "name": "item_calc_settlement",
+          "type": "DEC",
+          "formula": "revenue - promotion + shipping - fee - fbs - tax + other",
+          "refs": []
+        },
+        {
+          "id": "c825",
+          "name": "product_name",
+          "type": "VAR",
+          "formula": "c.product_name",
+          "refs": [
+            {
+              "tableId": "t12",
+              "colId": "c911"
+            }
+          ]
+        },
+        {
+          "id": "c826",
+          "name": "cogs_krw",
+          "type": "DEC",
+          "formula": "c.cogs",
+          "refs": [
+            {
+              "tableId": "t12",
+              "colId": "c912"
+            }
+          ]
+        },
+        {
+          "id": "c827",
+          "name": "cogs_total_krw",
+          "type": "DEC",
+          "formula": "c.cogs × t.item_quantity_purchased",
+          "refs": [
+            {
+              "tableId": "t12",
+              "colId": "c912"
+            },
+            {
+              "tableId": "t10",
+              "colId": "c860"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t10",
+      "level": 4,
+      "name": "4_shopee_settlement",
+      "desc": "쇼피 정산 원본 테이블 (Escrow API)",
+      "parent": "t9",
+      "children": [],
+      "cols": [
+        {
+          "id": "c850",
+          "name": "order_sn",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c851",
+          "name": "shop_id",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c852",
+          "name": "buyer_user_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c853",
+          "name": "buyer_payment_method",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c854",
+          "name": "item_id",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c855",
+          "name": "item_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c856",
+          "name": "item_sku",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c857",
+          "name": "model_id",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c858",
+          "name": "model_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c859",
+          "name": "model_sku",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c860",
+          "name": "item_quantity_purchased",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c861",
+          "name": "item_selling_price",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c862",
+          "name": "item_discount_from_coin",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c863",
+          "name": "item_discount_from_voucher_shopee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c864",
+          "name": "item_discount_from_voucher_seller",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c865",
+          "name": "item_original_price",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c866",
+          "name": "order_original_price",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c867",
+          "name": "buyer_paid_shipping_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c868",
+          "name": "final_shipping_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c869",
+          "name": "item_seller_discount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c870",
+          "name": "commission_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c871",
+          "name": "service_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c872",
+          "name": "seller_transaction_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c873",
+          "name": "order_ams_commission_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c874",
+          "name": "campaign_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c875",
+          "name": "seller_order_processing_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c876",
+          "name": "final_product_protection",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c877",
+          "name": "bcrs_deposit",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c878",
+          "name": "ads_escrow_top_up_fee_or_technical_support_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c879",
+          "name": "fbs_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c880",
+          "name": "final_escrow_product_gst",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c881",
+          "name": "final_escrow_shipping_gst",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c882",
+          "name": "escrow_tax",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c883",
+          "name": "shipping_fee_sst",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c884",
+          "name": "reverse_shipping_fee_sst",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c885",
+          "name": "total_adjustment_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c886",
+          "name": "seller_lost_compensation",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c887",
+          "name": "seller_coin_cash_back",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c888",
+          "name": "drc_adjustable_refund",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c889",
+          "name": "sip_subsidy",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c890",
+          "name": "credit_card_promotion",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c891",
+          "name": "reverse_shipping_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c892",
+          "name": "overseas_return_service_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c893",
+          "name": "final_return_to_seller_shipping_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c894",
+          "name": "escrow_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c895",
+          "name": "escrow_amount_after_adjustment",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c896",
+          "name": "item_shopee_discount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c897",
+          "name": "shopee_discount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c898",
+          "name": "voucher_from_seller",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c899",
+          "name": "voucher_from_shopee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "id": "t11",
+      "level": 4,
+      "name": "4_shopee_order",
+      "desc": "쇼피 주문 원본 테이블 (Order API)",
+      "parent": "t9",
+      "children": [],
+      "cols": [
+        {
+          "id": "c900",
+          "name": "order_sn",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c901",
+          "name": "item_id",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c902",
+          "name": "model_id",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c903",
+          "name": "pay_time",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c904",
+          "name": "region",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c905",
+          "name": "currency",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c906",
+          "name": "order_status",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c907",
+          "name": "create_time",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c908",
+          "name": "update_time",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c909",
+          "name": "total_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c910",
+          "name": "buyer_username",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c911_o",
+          "name": "shipping_carrier",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c912_o",
+          "name": "actual_shipping_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c913",
+          "name": "estimated_shipping_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c914",
+          "name": "item_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c915",
+          "name": "model_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c916",
+          "name": "model_quantity_purchased",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "id": "t12",
+      "level": 4,
+      "name": "5_shopee_cogs",
+      "desc": "쇼피 COGS (LEFT JOIN on model_sku)",
+      "parent": "t9",
+      "children": [],
+      "cols": [
+        {
+          "id": "c920",
+          "name": "model_sku",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c911",
+          "name": "product_name",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c912",
+          "name": "cogs",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "id": "t13",
+      "level": 3,
+      "name": "[qoo10 inline]",
+      "desc": "Qoo10 채널 (2_global_pnl 내 인라인 JOIN)",
+      "parent": "t1",
+      "children": [
+        "t14",
+        "t15"
+      ],
+      "cols": [
+        {
+          "id": "c950",
+          "name": "order_date",
+          "type": "TS",
+          "formula": "sh.payment_date",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c980"
+            }
+          ]
+        },
+        {
+          "id": "c951",
+          "name": "order_id",
+          "type": "VAR",
+          "formula": "sh.order_no",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c981"
+            }
+          ]
+        },
+        {
+          "id": "c952",
+          "name": "type",
+          "type": "VAR",
+          "formula": "sh.shipping_status",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c982"
+            }
+          ]
+        },
+        {
+          "id": "c953",
+          "name": "product_name",
+          "type": "VAR",
+          "formula": "sh.item_title",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c983"
+            }
+          ]
+        },
+        {
+          "id": "c954",
+          "name": "sku_name",
+          "type": "VAR",
+          "formula": "sh.option",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c984"
+            }
+          ]
+        },
+        {
+          "id": "c955",
+          "name": "sku_id",
+          "type": "VAR",
+          "formula": "sh.option_code",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c985"
+            }
+          ]
+        },
+        {
+          "id": "c956",
+          "name": "quantity",
+          "type": "INT",
+          "formula": "sh.order_qty",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c986"
+            }
+          ]
+        },
+        {
+          "id": "c957",
+          "name": "revenue",
+          "type": "DEC",
+          "formula": "sh.order_price",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c987"
+            }
+          ]
+        },
+        {
+          "id": "c958",
+          "name": "shipping",
+          "type": "DEC",
+          "formula": "sh.shipping_rate",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c988"
+            }
+          ]
+        },
+        {
+          "id": "c959",
+          "name": "commission_fees",
+          "type": "DEC",
+          "formula": "st.service_fee",
+          "refs": [
+            {
+              "tableId": "t15",
+              "colId": "c997"
+            }
+          ]
+        },
+        {
+          "id": "c960",
+          "name": "promotion",
+          "type": "DEC",
+          "formula": "sh.discount",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c989"
+            }
+          ]
+        },
+        {
+          "id": "c961",
+          "name": "net_settlement",
+          "type": "DEC",
+          "formula": "st.settled_amount",
+          "refs": [
+            {
+              "tableId": "t15",
+              "colId": "c998"
+            }
+          ]
+        },
+        {
+          "id": "c962",
+          "name": "settlement_date",
+          "type": "DATE",
+          "formula": "st.settled_date",
+          "refs": [
+            {
+              "tableId": "t15",
+              "colId": "c996"
+            }
+          ]
+        },
+        {
+          "id": "c963",
+          "name": "c_cogs_value",
+          "type": "DEC",
+          "formula": "fn_q10_cogs(sh.option_code)",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c985"
+            }
+          ]
+        },
+        {
+          "id": "c964",
+          "name": "c_cogs_value_total",
+          "type": "DEC",
+          "formula": "fn_q10_cogs(sh.option_code) × sh.order_qty",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c985"
+            },
+            {
+              "tableId": "t14",
+              "colId": "c986"
+            }
+          ]
+        },
+        {
+          "id": "c965",
+          "name": "o_payment_amount",
+          "type": "DEC",
+          "formula": "SUM(sh.total) GROUP BY pack_no",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c990"
+            },
+            {
+              "tableId": "t14",
+              "colId": "c991"
+            }
+          ]
+        },
+        {
+          "id": "c966",
+          "name": "recipient",
+          "type": "VAR",
+          "formula": "sh.buyer",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c992"
+            }
+          ]
+        },
+        {
+          "id": "c967",
+          "name": "phone",
+          "type": "VAR",
+          "formula": "sh.buyer_mobile",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c993"
+            }
+          ]
+        },
+        {
+          "id": "c968",
+          "name": "state",
+          "type": "VAR",
+          "formula": "sh.shipping_address",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c994"
+            }
+          ]
+        },
+        {
+          "id": "c969",
+          "name": "postal",
+          "type": "VAR",
+          "formula": "sh.zip_code",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c995"
+            }
+          ]
+        },
+        {
+          "id": "c970",
+          "name": "payment_method",
+          "type": "VAR",
+          "formula": "sh.payment_method",
+          "refs": [
+            {
+              "tableId": "t14",
+              "colId": "c9pm"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "t14",
+      "level": 4,
+      "name": "4_q10_shipping",
+      "desc": "Qoo10 배송/주문 원본 테이블",
+      "parent": "t13",
+      "children": [],
+      "cols": [
+        {
+          "id": "c980",
+          "name": "payment_date",
+          "type": "TS",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c981",
+          "name": "order_no",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c982",
+          "name": "shipping_status",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c983",
+          "name": "item_title",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c984",
+          "name": "option",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c985",
+          "name": "option_code",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c986",
+          "name": "order_qty",
+          "type": "INT",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c987",
+          "name": "order_price",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c988",
+          "name": "shipping_rate",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c989",
+          "name": "discount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c990",
+          "name": "total",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c991",
+          "name": "pack_no",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c992",
+          "name": "buyer",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c993",
+          "name": "buyer_mobile",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c994",
+          "name": "shipping_address",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c995",
+          "name": "zip_code",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c9pm",
+          "name": "payment_method",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        }
+      ]
+    },
+    {
+      "id": "t15",
+      "level": 4,
+      "name": "4_q10_settlement",
+      "desc": "Qoo10 정산 원본 테이블",
+      "parent": "t13",
+      "children": [],
+      "cols": [
+        {
+          "id": "c996",
+          "name": "settled_date",
+          "type": "DATE",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c9960",
+          "name": "order_no",
+          "type": "VAR",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c997",
+          "name": "service_fee",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        },
+        {
+          "id": "c998",
+          "name": "settled_amount",
+          "type": "DEC",
+          "formula": "",
+          "refs": []
+        }
       ]
     }
   ],
   "positions": {},
-  "idCounter": 300
+  "idCounter": 1000
 }
